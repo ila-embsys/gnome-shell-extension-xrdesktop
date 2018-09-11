@@ -35,8 +35,7 @@ class VRControlIndicator extends PanelMenu.Button {
   constructor() {
     super(0.0, "VR Control");
 
-    let icon = new St.Icon({ icon_name: 'preferences-desktop-display',
-                             style_class: 'system-status-icon' });
+    let icon = new St.Icon({style_class: 'gnome-vr-icon'});
 
     this.actor.add_actor(icon);
 
