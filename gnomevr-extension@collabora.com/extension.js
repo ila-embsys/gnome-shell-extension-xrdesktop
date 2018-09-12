@@ -49,7 +49,7 @@ class VRControlIndicator extends PanelMenu.Button {
     this.menu_section = new PopupMenu.PopupMenuSection();
     this.menu.addMenuItem(this.menu_section);
 
-    _vrswitch = new PopupMenu.PopupSwitchMenuItem("VR Mirror enabled");
+    _vrswitch = new PopupMenu.PopupSwitchMenuItem("VR Mirror");
     this.menu_section.addMenuItem(_vrswitch)
 
     this.menu.connect('open-state-changed', this._sync)
