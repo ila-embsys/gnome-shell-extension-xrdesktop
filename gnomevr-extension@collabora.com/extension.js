@@ -77,7 +77,6 @@ class VRControlIndicator extends PanelMenu.Button {
   }
 
   _sync() {
-    // TODO: This is always false when changed e.g. via shell script. Why?
     let enabled = _proxy.enabled;
     //global.log("Set XR switch to " + _proxy.enabled);
     _vrswitch.setToggleState(enabled);
