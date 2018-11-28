@@ -1,0 +1,6 @@
+{
+  "name": "XR Desktop Extension",
+  "description": "Control XR Desktop mode.",
+  "uuid": "xrdesktop-extension@collabora.com",
+  "shell-version": ["3.30.2"]
+}

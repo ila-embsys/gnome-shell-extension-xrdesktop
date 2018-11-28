@@ -1,6 +1,0 @@
-{
-  "name": "GNOME VR Extension",
-  "description": "Control GNOME Shell VR mode.",
-  "uuid": "gnomevr-extension@collabora.com",
-  "shell-version": ["3.29.91"]
-}

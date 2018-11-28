@@ -9,6 +9,6 @@ shelldir = join_paths(datadir, 'gnome-shell')
 extensiondir = join_paths(shelldir, 'extensions')
 js52 = find_program('js52', required: false)
 
-uuid = 'gnomevr-extension@collabora.com'
+uuid = 'xrdesktop-extension@collabora.com'
 
 subdir(uuid)
