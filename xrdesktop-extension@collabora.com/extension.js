@@ -38,6 +38,10 @@ let _vrswitch;
 function init() {
 }
 
+function _sync() {
+  _vrswitch.setToggleState(_proxy.enabled);
+}
+
 class VRControlIndicator extends PanelMenu.Button {
   constructor() {
     super(0.0, "VR Control");
@@ -52,7 +56,7 @@ class VRControlIndicator extends PanelMenu.Button {
     _vrswitch = new PopupMenu.PopupSwitchMenuItem("VR Mirror");
     this.menu_section.addMenuItem(_vrswitch)
 
-    this.menu.connect('open-state-changed', this._sync)
+    this.menu.connect('open-state-changed', _sync)
 
     _vrswitch.connect("toggled", function(object, value) {
       if(value) {
@@ -74,12 +78,6 @@ class VRControlIndicator extends PanelMenu.Button {
               return;
           }
       });
-  }
-
-  _sync() {
-    let enabled = _proxy.enabled;
-    //global.log("Set XR switch to " + _proxy.enabled);
-    _vrswitch.setToggleState(enabled);
   }
 };
 
