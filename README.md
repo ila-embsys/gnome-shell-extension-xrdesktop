@@ -1,4 +1,4 @@
-# GNOME Shell Extension vrdesktop
+# GNOME Shell Extension for XR Desktop
 
 An extension for toggling XR Desktop mode in GNOME Shell.
 
