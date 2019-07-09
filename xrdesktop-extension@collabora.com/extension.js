@@ -44,7 +44,7 @@ function _sync() {
 
 class VRControlIndicator extends PanelMenu.Button {
   constructor() {
-    super(0.0, "VR Control");
+    super(0.0, "xrdesktop Control");
 
     let icon = new St.Icon({style_class: 'gnome-vr-icon'});
 
@@ -53,17 +53,15 @@ class VRControlIndicator extends PanelMenu.Button {
     this.menu_section = new PopupMenu.PopupMenuSection();
     this.menu.addMenuItem(this.menu_section);
 
-    _vrswitch = new PopupMenu.PopupSwitchMenuItem("VR Mirror");
+    _vrswitch = new PopupMenu.PopupSwitchMenuItem("Mirror to XR");
     this.menu_section.addMenuItem(_vrswitch)
 
     this.menu.connect('open-state-changed', _sync)
 
     _vrswitch.connect("toggled", function(object, value) {
       if(value) {
-        global.log("++++++++++++++++++++ Enable VR mode ++++++++++++++++++++");
         _proxy.enabled = true;
       } else {
-        global.log("++++++++++++++++++++ Disable VR mode +++++++++++++++++++");
         _proxy.enabled = false;
       }
     });
@@ -86,7 +84,7 @@ let indicator;
 
 function enable() {
     indicator = new VRControlIndicator;
-    Main.panel.addToStatusArea('vr-control-indicator', indicator);
+    Main.panel.addToStatusArea('xrdesktop-control-indicator', indicator);
 }
 
 function disable() {
