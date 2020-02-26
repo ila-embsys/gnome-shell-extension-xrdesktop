@@ -20,6 +20,7 @@ const Gio = imports.gi.Gio;
 
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
+const Util = imports.misc.util;
 
 
 const VRControlInterface =
@@ -54,9 +55,9 @@ class VRControlIndicator extends PanelMenu.Button {
     this.menu.addMenuItem(this.menu_section);
 
     _vrswitch = new PopupMenu.PopupSwitchMenuItem("Mirror to XR");
-    this.menu_section.addMenuItem(_vrswitch)
+    this.menu_section.addMenuItem(_vrswitch);
 
-    this.menu.connect('open-state-changed', _sync)
+    this.menu.connect('open-state-changed', _sync);
 
     _vrswitch.connect("toggled", function(object, value) {
       if(value) {
@@ -76,6 +77,14 @@ class VRControlIndicator extends PanelMenu.Button {
               return;
           }
       });
+
+    let settings_item = new PopupMenu.PopupMenuItem("Settings");
+    settings_item.connect('activate', function() {
+        Util.spawn(["xrd-settings"]);
+    });
+
+    this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+    this.menu.addMenuItem(settings_item);
   }
 };
 
