@@ -1,5 +1,5 @@
 /*
- * GNOME VR Extension
+ * xrdesktop Extension
  * Copyright 2018 Collabora Ltd.
  * Author: Christoph Haag <christoph.haag@collabora.com>
  * Author: Lubosz Sarnecki <lubosz.sarnecki@collabora.com>
@@ -13,7 +13,7 @@ const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Util = imports.misc.util;
 
-const VRControlInterface =
+const XRControlInterface =
 '<node>\
   <interface name="org.gnome.Shell.XR">\
     <property name="enabled" type="b" access="readwrite" />\
@@ -21,20 +21,20 @@ const VRControlInterface =
 </node>';
 
 // Declare the proxy class based on the interface
-const VRControlProxy = Gio.DBusProxy.makeProxyWrapper(VRControlInterface);
+const XRControlProxy = Gio.DBusProxy.makeProxyWrapper(XRControlInterface);
 
 let _proxy;
-let _vrswitch;
+let _switch;
 
 function init() {
 }
 
 function _sync() {
-  _vrswitch.setToggleState(_proxy.enabled);
+  _switch.setToggleState(_proxy.enabled);
 }
 
-var VRControlIndicator = GObject.registerClass(
-class VRControlIndicator extends PanelMenu.Button {
+var XRControlIndicator = GObject.registerClass(
+class XRControlIndicator extends PanelMenu.Button {
   _init() {
     super._init(0.0, "xrdesktop Control");
 
@@ -43,12 +43,12 @@ class VRControlIndicator extends PanelMenu.Button {
     this.menu_section = new PopupMenu.PopupMenuSection();
     this.menu.addMenuItem(this.menu_section);
 
-    _vrswitch = new PopupMenu.PopupSwitchMenuItem("Mirror to XR", false);
-    this.menu_section.addMenuItem(_vrswitch);
+    _switch = new PopupMenu.PopupSwitchMenuItem("Mirror to XR", false);
+    this.menu_section.addMenuItem(_switch);
 
     this.menu.connect('open-state-changed', _sync);
 
-    _vrswitch.connect("toggled", function(object, value) {
+    _switch.connect("toggled", function(object, value) {
       if(value) {
         _proxy.enabled = true;
       } else {
@@ -56,7 +56,7 @@ class VRControlIndicator extends PanelMenu.Button {
       }
     });
 
-    _proxy = new VRControlProxy(
+    _proxy = new XRControlProxy(
       Gio.DBus.session,
       "org.gnome.Shell.XR",
       "/org/gnome/Shell/XR",
@@ -81,7 +81,7 @@ class VRControlIndicator extends PanelMenu.Button {
 let indicator;
 
 function enable() {
-    indicator = new VRControlIndicator;
+    indicator = new XRControlIndicator;
     Main.panel.addToStatusArea('xrdesktop-control-indicator', indicator);
 }
 
