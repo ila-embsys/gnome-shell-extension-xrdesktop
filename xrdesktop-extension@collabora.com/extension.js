@@ -12,6 +12,7 @@ const Tweener = imports.ui.tweener;
 
 const Clutter = imports.gi.Clutter;
 const GLib = imports.gi.GLib;
+const GObject = imports.gi.GObject;
 
 const GnomeDesktop = imports.gi.GnomeDesktop;
 const Gdk = imports.gi.Gdk;
@@ -43,18 +44,17 @@ function _sync() {
   _vrswitch.setToggleState(_proxy.enabled);
 }
 
+var VRControlIndicator = GObject.registerClass(
 class VRControlIndicator extends PanelMenu.Button {
-  constructor() {
-    super(0.0, "xrdesktop Control");
+  _init() {
+    super._init(0.0, "xrdesktop Control");
 
-    let icon = new St.Icon({style_class: 'gnome-vr-icon'});
-
-    this.actor.add_actor(icon);
+    this.add_child(new St.Icon({ style_class: 'gnome-vr-icon' }));
 
     this.menu_section = new PopupMenu.PopupMenuSection();
     this.menu.addMenuItem(this.menu_section);
 
-    _vrswitch = new PopupMenu.PopupSwitchMenuItem("Mirror to XR");
+    _vrswitch = new PopupMenu.PopupSwitchMenuItem("Mirror to XR", false);
     this.menu_section.addMenuItem(_vrswitch);
 
     this.menu.connect('open-state-changed', _sync);
@@ -86,7 +86,7 @@ class VRControlIndicator extends PanelMenu.Button {
     this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
     this.menu.addMenuItem(settings_item);
   }
-};
+});
 
 
 let indicator;
