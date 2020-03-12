@@ -6,23 +6,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-const St = imports.gi.St;
+const { St, GObject, Gio } = imports.gi;
+
 const Main = imports.ui.main;
-const Tweener = imports.ui.tweener;
-
-const Clutter = imports.gi.Clutter;
-const GLib = imports.gi.GLib;
-const GObject = imports.gi.GObject;
-
-const GnomeDesktop = imports.gi.GnomeDesktop;
-const Gdk = imports.gi.Gdk;
-
-const Gio = imports.gi.Gio;
-
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Util = imports.misc.util;
-
 
 const VRControlInterface =
 '<node>\
