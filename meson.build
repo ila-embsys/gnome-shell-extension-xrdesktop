@@ -1,5 +1,5 @@
 project('gnome-shell-extension-xrdesktop',
-  version: '0.13.2',
+  version: '0.14.0',
   meson_version: '>= 0.44.0',
   license: 'MIT'
 )
