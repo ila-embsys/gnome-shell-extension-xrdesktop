@@ -5,13 +5,14 @@ install_data (extension_sources + extension_data,
   install_dir: join_paths(extensiondir, uuid)
 )
 
-js = js68
-if not js.found()
-    if js60.found()
-        js = js60
-    elif js52.found()
-        js = js52
-    endif
+if js52.found()
+    js = js52
+elif js60.found()
+    js = js60
+elif js68.found()
+    js = js68
+elif js78.found()
+    js = js78
 endif
 
 foreach js_source : extension_sources

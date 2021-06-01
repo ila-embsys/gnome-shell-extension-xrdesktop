@@ -11,6 +11,7 @@ extensiondir = join_paths(shelldir, 'extensions')
 js52 = find_program('js52', required: false)
 js60 = find_program('js60', required: false)
 js68 = find_program('js68', required: false)
+js78 = find_program('js78', required: false)
 
 uuid = 'xrdesktop-extension@collabora.com'
 
