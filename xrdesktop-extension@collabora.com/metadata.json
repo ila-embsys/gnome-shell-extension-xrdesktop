@@ -2,5 +2,5 @@
   "name": "xrdesktop extension",
   "description": "Control xrdesktop.",
   "uuid": "xrdesktop-extension@collabora.com",
-  "shell-version": ["3.28", "3.30", "3.32", "3.34", "3.36", "40.1", "41.1", "42.3", "42.4"]
+  "shell-version": ["3.28", "3.30", "3.32", "3.34", "3.36", "40.1", "41.1", "42.3", "42.4", "43.0"]
 }
