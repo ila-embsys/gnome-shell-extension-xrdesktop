@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/default.mk
+
+%:
+	dh $@
+
+override_dh_missing:
+	dh_missing --list-missing

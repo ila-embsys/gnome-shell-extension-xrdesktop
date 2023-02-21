@@ -1,0 +1,25 @@
+Source: gnome-shell-extension-xrdesktop
+Section: gnome
+Priority: optional
+Maintainer: Andrew Lee (李健秋) <ajqlee@debian.org>
+Uploaders: Héctor Orón Martínez <zumbi@debian.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ meson (>= 0.44.0)
+Standards-Version: 4.6.0
+Homepage: https://gitlab.freedesktop.org/xrdesktop/gnome-shell-extension-xrdesktop
+Vcs-Git: https://salsa.debian.org/xrdesktop-team/gnome-shell-extension-xrdesktop.git
+Vcs-Browser: https://salsa.debian.org/xrdesktop-team/gnome-shell-extension-xrdesktop
+
+Package: gnome-shell-extension-xrdesktop
+Architecture: all
+Depends:
+ ${misc:Depends},
+ gnome-shell,
+Recommends:
+ gnome-tweak-tool,
+Description: GNOME Shell extension to control XR desktop.
+ This is GNOME Extension to control GNOME Shell XR desktop.
+ .
+ Please note that each user will need to enable the extension manually, for
+ example using gnome-tweak-tool.

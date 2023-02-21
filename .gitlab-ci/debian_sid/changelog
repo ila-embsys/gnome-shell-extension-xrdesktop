@@ -1,0 +1,30 @@
+gnome-shell-extension-xrdesktop (0.16.0-1) UNRELEASED; urgency=medium
+
+  * Version bump
+
+ -- Christoph Haag <christoph.haag@collabora.com>  Mon, 16 Jan 2023 21:37:57 +0000
+
+gnome-shell-extension-xrdesktop (0.14.0-3) unstable; urgency=medium
+
+  * Source only upload.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Tue, 21 Apr 2020 15:34:01 +0800
+
+gnome-shell-extension-xrdesktop (0.14.0-2) unstable; urgency=medium
+
+  * Move package from contrib to main as it's not depends on non-free
+    anymore.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Tue, 14 Apr 2020 17:32:10 +0800
+
+gnome-shell-extension-xrdesktop (0.14.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 09 Apr 2020 09:41:00 +0800
+
+gnome-shell-extension-xrdesktop (0.13.2-1) unstable; urgency=medium
+
+  * Initial Release. (Closes: #933567)
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Mon, 25 Nov 2019 21:02:50 +0800
