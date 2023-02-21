@@ -13,6 +13,22 @@ js60 = find_program('js60', required: false)
 js68 = find_program('js68', required: false)
 js78 = find_program('js78', required: false)
 
+has_js = false
+
+if js52.found()
+    js = js52
+    has_js = true
+elif js60.found()
+    js = js60
+    has_js = true
+elif js68.found()
+    js = js68
+    has_js = true
+elif js78.found()
+    js = js78
+    has_js = true
+endif
+
 uuid = 'xrdesktop-extension@collabora.com'
 
 subdir(uuid)
