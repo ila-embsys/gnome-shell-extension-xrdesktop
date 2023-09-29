@@ -6,12 +6,16 @@
  * SPDX-License-Identifier: MIT
  */
 
-const { St, GObject, Gio } = imports.gi;
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const Main = imports.ui.main;
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
-const Util = imports.misc.util;
+import St from 'gi://St';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
+
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as Util from 'resource:///org/gnome/shell/misc/util.js';
 
 const XRControlInterface =
 '<node>\
@@ -23,68 +27,70 @@ const XRControlInterface =
 // Declare the proxy class based on the interface
 const XRControlProxy = Gio.DBusProxy.makeProxyWrapper(XRControlInterface);
 
-let _proxy;
-let _switch;
+let XRControlIndicator = GObject.registerClass(
+  class XRControlIndicator extends PanelMenu.Button {
+    
+    constructor() {
+      super(0.0, "xrdesktop Control");
 
-function init() {
-}
+      let proxy = new XRControlProxy(
+        Gio.DBus.session,
+        "org.gnome.Shell.XR",
+        "/org/gnome/Shell/XR",
+        (_proxy, error) => {
+            if (error) {
+                // log(error.message);
+                return;
+            }
+        });
 
-function _sync() {
-  _switch.setToggleState(_proxy.enabled);
-}
+      this.add_child(new St.Icon({ style_class: 'gnome-vr-icon' }));
 
-var XRControlIndicator = GObject.registerClass(
-class XRControlIndicator extends PanelMenu.Button {
-  _init() {
-    super._init(0.0, "xrdesktop Control");
+      this.menu_section = new PopupMenu.PopupMenuSection();
+      this.menu.addMenuItem(this.menu_section);
 
-    this.add_child(new St.Icon({ style_class: 'gnome-vr-icon' }));
+      let sw = new PopupMenu.PopupSwitchMenuItem("Mirror to XR", false);
+      this.menu_section.addMenuItem(sw);
 
-    this.menu_section = new PopupMenu.PopupMenuSection();
-    this.menu.addMenuItem(this.menu_section);
-
-    _switch = new PopupMenu.PopupSwitchMenuItem("Mirror to XR", false);
-    this.menu_section.addMenuItem(_switch);
-
-    this.menu.connect('open-state-changed', _sync);
-
-    _switch.connect("toggled", function(object, value) {
-      if(value) {
-        _proxy.enabled = true;
-      } else {
-        _proxy.enabled = false;
-      }
-    });
-
-    _proxy = new XRControlProxy(
-      Gio.DBus.session,
-      "org.gnome.Shell.XR",
-      "/org/gnome/Shell/XR",
-      (proxy, error) => {
-          if (error) {
-              log(error.message);
-              return;
-          }
+      this.menu.connect('open-state-changed', () => {
+        sw.setToggleState(proxy.enabled);
       });
 
-    let settings_item = new PopupMenu.PopupMenuItem("Settings");
-    settings_item.connect('activate', function() {
-        Util.spawn(["xrd-settings"]);
-    });
+      sw.connect("toggled", (_item, state) => {
+        if(state) {
+          proxy.enabled = true;
+        } else {
+          proxy.enabled = false;
+        }
+      });
 
-    this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-    this.menu.addMenuItem(settings_item);
+      let settings_item = new PopupMenu.PopupMenuItem("Settings");
+      settings_item.connect('activate', () => {
+          Util.spawn(["xrd-settings"]);
+      });
+
+      this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+      this.menu.addMenuItem(settings_item);
+    }
+  });
+
+
+export default class XrDesktopExtension extends Extension {
+
+  constructor(metadata) {
+    super(metadata);
+
+    console.debug(`constructing ${this.metadata.name}`);
   }
-});
 
+  enable() {
+    this._indicator = new XRControlIndicator();
+    Main.panel.addToStatusArea('xrdesktop-control-indicator', this._indicator);
+  }
 
-let indicator;
+  disable() {
+    this._indicator?.destroy();
+    this._indicator = null;
+  }
 
-function enable() {
-    indicator = new XRControlIndicator;
-    Main.panel.addToStatusArea('xrdesktop-control-indicator', indicator);
-}
-
-function disable() {
-    indicator.destroy();
 }
